@@ -8,13 +8,15 @@ using namespace std;
 void createArray(int array[], int size);
 void randomizeArray(int array[], int size);
 void printArray(int array[], int size);
+
 void bubbleSort(int array[], int size);
 void selectionSort(int array[], int size);
+void insertionSort(int array[], int size);
 void bogoSort(int array[], int size);
 
 int main() {
-    int A[4];
     int Asize = 4;
+    int A[Asize];
     
     createArray(A, Asize);
     
@@ -23,6 +25,9 @@ int main() {
     
     randomizeArray(A, Asize);
     selectionSort(A, Asize);
+    
+    randomizeArray(A, Asize);
+    insertionSort(A, Asize);
     
     //randomizeArray(A, Asize);
     //bogoSort(A, Asize);
@@ -128,6 +133,46 @@ void selectionSort(int array[], int size) {
                 cout << endl << endl;
             }
         }
+    }
+    
+    cout << "  final array: ";
+    printArray(array, size);
+    cout << endl << endl;
+}
+
+
+/*
+ * Insertion Sort
+ */
+void insertionSort(int array[], int size) {
+    cout << endl << "  Insertion Sort" << endl;
+    cout << "  --------------" << endl;
+    cout << "  original array: ";
+    printArray(array, size);
+    cout << endl << endl;
+    
+    int temp, j;
+    for (int i = 1; i < size; i++) {
+        temp = array[i];
+        cout << "  pass " << i << " = sorted so far: ";
+        printArray(array, i);
+        cout << " temp = " << temp << endl;
+
+        for (j = (i - 1); j >= 0; j--) {
+            cout << "    compare temp against element " << j << endl;
+            if (temp < array[j]) {
+                array[j + 1] = array[j];
+                cout << "    it's lower so copy element " << j << " right --> ";
+                printArray(array, i + 1);
+                cout << endl << endl;
+            } else {
+                cout << "    it's higher so insert behind --> ";
+                break;
+            }
+        }
+        array[j + 1] = temp;
+        printArray(array, i + 1);
+        cout << endl << endl;
     }
     
     cout << "  final array: ";
