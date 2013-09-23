@@ -9,6 +9,7 @@ void createArray(int array[], int size);
 void randomizeArray(int array[], int size);
 void printArray(int array[], int size);
 void bubbleSort(int array[], int size);
+void selectionSort(int array[], int size);
 void bogoSort(int array[], int size);
 
 int main() {
@@ -16,15 +17,15 @@ int main() {
     int Asize = 4;
     
     createArray(A, Asize);
-    cout << endl << "  Unsorted array = ";
-    printArray(A, Asize);
-    cout << endl;
-    cout << endl;
     
+    randomizeArray(A, Asize);
     bubbleSort(A, Asize);
     
     randomizeArray(A, Asize);
-    bogoSort(A, Asize);
+    selectionSort(A, Asize);
+    
+    //randomizeArray(A, Asize);
+    //bogoSort(A, Asize);
 
 
 
@@ -57,12 +58,12 @@ void printArray(int array[], int size) {
 }
 
 /*
- * Bubble sort.
+ * Bubble Sort
  */
 void bubbleSort(int array[], int size) {
 
-    cout << "  Bubble Sort" << endl;
-    cout << "  -----------" << endl << endl;
+    cout << endl << "  Bubble Sort" << endl;
+    cout << "  -----------" << endl;
     cout << "  original array: ";
     printArray(array, size);
     cout << endl << endl;
@@ -74,15 +75,57 @@ void bubbleSort(int array[], int size) {
         for (int j = 0; j < (i - 1); j++) {
             cout << "    check array[" << j << "] against array[" << j + 1 << "]" << endl;
             if (array[j] > array[j + 1]) {
-                cout << "    " << array[j] << " is higher than " << array[j + 1] << ", so swap." << endl;
+                cout << "    " << array[j] << " is greater than " << array[j + 1] << " so swap. -->";
+                
+                
                 int temp = array[j];
                 array[j] = array[j + 1];
                 array[j + 1] = temp;
-                cout << "    current array -->";
-                printArray(array, i);
+                
+                printArray(array, size);
                 cout << endl << endl;
             } else {
-                cout << "    " << array[j] << " is lower than " << array[j + 1] << ", no change." << endl << endl;
+                cout << "    " << array[j] << " is less than " << array[j + 1] << " so continue. --> ";
+                printArray(array, size);
+                cout << endl << endl;
+            }
+        }
+    }
+    
+    cout << "  final array: ";
+    printArray(array, size);
+    cout << endl << endl;
+}
+
+
+/*
+ * Selection Sort
+ */
+void selectionSort(int array[], int size) {
+    cout << endl << "  Selection Sort" << endl;
+    cout << "  --------------" << endl;
+    cout << "  original array: ";
+    printArray(array, size);
+    cout << endl << endl;
+    
+    for (int i = 0; i < (size - 1); i++) {
+        cout << "  pass " << i + 1 << " = ";
+        printArray(array, (size - i));
+        cout << endl;
+        
+        for (int j = (i + 1); j < size; j++) {
+            cout << "    check array[" << i << "] against array[" << j << "]" << endl;
+            if (array[i] > array [j]) {
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+                cout << "    " << array[i] << " is greater than " << array[j] << " so swap. --> ";
+                printArray(array, size);
+                cout << endl << endl;
+            } else {
+                cout << "    " << array[i] << " is less than " << array[j] << " so continue. --> ";
+                printArray(array, size);
+                cout << endl << endl;
             }
         }
     }
@@ -99,8 +142,8 @@ void bubbleSort(int array[], int size) {
  */
 void bogoSort(int array[], int size) {
 
-    cout << endl << "  Bogosort";
-    cout << endl << "  --------" << endl << endl;
+    cout << endl << "  Bogosort" << endl;
+    cout << "  --------" << endl;
     cout << "    Initial array = ";
     printArray(array, size);
     cout << endl;
