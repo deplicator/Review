@@ -20,17 +20,17 @@ int main() {
 	int B[Asize];
     
     createArray(A, Asize);
-	std::copy(A, A+Asize, B); //Make a backup copy of array A so the exact same array is passed to each sort.
+    copy(A, A+Asize, B); //Make a backup copy of array A so the exact same array is passed to each sort.
 	
     bubbleSort(A, Asize);
     
-	std::copy(B, B+Asize, A); //Restore array A from backup.
+    copy(B, B+Asize, A); //Restore array A from backup.
     selectionSort(A, Asize);
 	
-    std::copy(B, B+Asize, A); //Restore array A from backup.
+    copy(B, B+Asize, A); //Restore array A from backup.
     insertionSort(A, Asize);
     
-	std::copy(B, B+Asize, A); //Restore array A from backup.
+    copy(B, B+Asize, A); //Restore array A from backup.
     bogoSort(A, Asize);
 
     return 0;
