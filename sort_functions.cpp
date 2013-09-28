@@ -1,13 +1,12 @@
 #include <algorithm>
 #include <cstdlib>
-#include <time.h>
+#include <ctime>    //time difference 0 when compiled on gcc, but gives a result in Visual Studios.
 #include <iostream>
 
 using namespace std;
 
 void createArray(int array[], int size);
-void randomizeArray(int array[], int size);
-void printArray(int array[], int size);
+void printArray(int array[], int size, int start);
 
 void bubbleSort(int array[], int size);
 void selectionSort(int array[], int size);
@@ -15,31 +14,24 @@ void insertionSort(int array[], int size);
 void bogoSort(int array[], int size);
 
 int main() {
-
-    clock_t start, end;
     
-    start = clock();
-    
-    int Asize = 4;
+    const int Asize = 4;
     int A[Asize];
+	int B[Asize];
     
     createArray(A, Asize);
-    
-    randomizeArray(A, Asize);
+	std::copy(A, A+Asize, B); //Make a backup copy of array A so the exact same array is passed to each sort.
+	
     bubbleSort(A, Asize);
     
-    randomizeArray(A, Asize);
+	std::copy(B, B+Asize, A); //Restore array A from backup.
     selectionSort(A, Asize);
-    
-    randomizeArray(A, Asize);
+	
+    std::copy(B, B+Asize, A); //Restore array A from backup.
     insertionSort(A, Asize);
     
-    //randomizeArray(A, Asize);
-    //bogoSort(A, Asize);
-
-    end = clock();
-    
-    cout << start << endl << end << endl;
+	std::copy(B, B+Asize, A); //Restore array A from backup.
+    bogoSort(A, Asize);
 
     return 0;
 }
@@ -53,14 +45,9 @@ void createArray(int array[], int size) {
 }
 
 
-void randomizeArray(int array[], int size) {
-    random_shuffle(&array[0], &array[size]);
-}
-
-
-void printArray(int array[], int size) {
+void printArray(int array[], int size, int start = 0) {
     cout << "{";
-    for (int i = 0; i < size; i++) {
+    for (int i = start; i < size; i++) {
         cout << array[i];
         if (i != (size - 1)) {
             cout << ", ";
@@ -71,8 +58,11 @@ void printArray(int array[], int size) {
 
 /*
  * Bubble Sort
+ * http://en.wikipedia.org/wiki/Bubble_sort
  */
 void bubbleSort(int array[], int size) {
+	clock_t start, end;
+    start = clock();
 
     cout << endl << "  Bubble Sort" << endl;
     cout << "  -----------" << endl;
@@ -81,14 +71,13 @@ void bubbleSort(int array[], int size) {
     cout << endl << endl;
     
     for (int i = size; i > 1; i--) {
-        cout << "  pass " << size - i + 1 << " = ";
-        printArray(array, i);
-        cout << endl;
+        cout << "  pass " << size - i + 1 << endl << "    sorted so far: ";
+        printArray(array, size, i);
+        cout << endl << endl;
         for (int j = 0; j < (i - 1); j++) {
-            cout << "    check array[" << j << "] against array[" << j + 1 << "]" << endl;
+            cout << "    check element " << j << " against element " << j + 1 << endl;
             if (array[j] > array[j + 1]) {
-                cout << "    " << array[j] << " is greater than " << array[j + 1] << " so swap. -->";
-                
+                cout << "    " << array[j] << " is greater than " << array[j + 1] << " so swap. --> ";
                 
                 int temp = array[j];
                 array[j] = array[j + 1];
@@ -103,17 +92,23 @@ void bubbleSort(int array[], int size) {
             }
         }
     }
-    
-    cout << "  final array: ";
+
+    end = clock();
+
+    cout << "  Final array: ";
     printArray(array, size);
-    cout << endl << endl;
+    cout << endl << "  Time to complete " << ((float)end - start) / CLOCKS_PER_SEC << " seconds." << endl << endl;
 }
 
 
 /*
  * Selection Sort
+ * http://en.wikipedia.org/wiki/Selection_sort
  */
 void selectionSort(int array[], int size) {
+	clock_t start, end;
+    start = clock();
+
     cout << endl << "  Selection Sort" << endl;
     cout << "  --------------" << endl;
     cout << "  original array: ";
@@ -121,12 +116,12 @@ void selectionSort(int array[], int size) {
     cout << endl << endl;
     
     for (int i = 0; i < (size - 1); i++) {
-        cout << "  pass " << i + 1 << " = ";
-        printArray(array, (size - i));
-        cout << endl;
+        cout << "  pass " << i + 1 << endl << "    sorted so far: ";
+        printArray(array, size, size - i);
+        cout << endl << endl;
         
         for (int j = (i + 1); j < size; j++) {
-            cout << "    check array[" << i << "] against array[" << j << "]" << endl;
+            cout << "    check element " << i << " against element " << j << endl;
             if (array[i] > array [j]) {
                 int temp = array[i];
                 array[i] = array[j];
@@ -142,16 +137,22 @@ void selectionSort(int array[], int size) {
         }
     }
     
-    cout << "  final array: ";
+    end = clock();
+
+    cout << "  Final array: ";
     printArray(array, size);
-    cout << endl << endl;
+    cout << endl << "  Time to complete " << ((float)end - start) / CLOCKS_PER_SEC << " seconds." << endl << endl;
 }
 
 
 /*
  * Insertion Sort
+ * http://en.wikipedia.org/wiki/Insertion_sort
  */
 void insertionSort(int array[], int size) {
+	clock_t start, end;
+    start = clock();
+
     cout << endl << "  Insertion Sort" << endl;
     cout << "  --------------" << endl;
     cout << "  original array: ";
@@ -161,9 +162,9 @@ void insertionSort(int array[], int size) {
     int temp, j;
     for (int i = 1; i < size; i++) {
         temp = array[i];
-        cout << "  pass " << i << " = sorted so far: ";
+        cout << "  pass " << i << endl <<"    sorted so far: ";
         printArray(array, i);
-        cout << " temp = " << temp << endl;
+        cout << endl << "    temp: " << temp << endl << endl;
 
         for (j = (i - 1); j >= 0; j--) {
             cout << "    compare temp against element " << j << endl;
@@ -178,13 +179,15 @@ void insertionSort(int array[], int size) {
             }
         }
         array[j + 1] = temp;
-        printArray(array, i + 1);
+        //printArray(array, i + 1);
         cout << endl << endl;
     }
-    
-    cout << "  final array: ";
+
+    end = clock();
+
+    cout << "  Final array: ";
     printArray(array, size);
-    cout << endl << endl;
+    cout << endl << "  Time to complete " << ((float)end - start) / CLOCKS_PER_SEC << " seconds." << endl << endl;
 }
 
 
@@ -193,6 +196,8 @@ void insertionSort(int array[], int size) {
  * http://en.wikipedia.org/wiki/Bogosort
  */
 void bogoSort(int array[], int size) {
+	clock_t start, end;
+    start = clock();
 
     cout << endl << "  Bogosort" << endl;
     cout << "  --------" << endl;
@@ -211,53 +216,17 @@ void bogoSort(int array[], int size) {
             count = 0;
             cout << " is not lower than " << array[count + 2] << endl << endl;
             cout << "    Reshuffling array = ";
-            randomizeArray(array, size);
+            random_shuffle(&array[0], &array[size]);
             printArray(array, size);
             reshuffleCount++;
             cout << endl;
         }
     }
-    cout << endl << "  It took " << reshuffleCount << " reshuffels to complete." << endl;
-    cout << "  final array: ";
+
+	end = clock();
+    
+    cout << "  Final array: ";
     printArray(array, size);
-    cout << endl << endl;
-    
-    
-
+	cout << endl << "  It took " << reshuffleCount << " reshuffels to complete." << endl;
+    cout << endl << "  Time to complete " << (end - start) / (double)CLOCKS_PER_SEC << " seconds." << endl << endl;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
