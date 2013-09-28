@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <cstdlib>
-#include <ctime>
+#include <time.h>
 #include <iostream>
 
 using namespace std;
@@ -15,6 +15,11 @@ void insertionSort(int array[], int size);
 void bogoSort(int array[], int size);
 
 int main() {
+
+    clock_t start, end;
+    
+    start = clock();
+    
     int Asize = 4;
     int A[Asize];
     
@@ -32,7 +37,9 @@ int main() {
     //randomizeArray(A, Asize);
     //bogoSort(A, Asize);
 
-
+    end = clock();
+    
+    cout << start << endl << end << endl;
 
     return 0;
 }
