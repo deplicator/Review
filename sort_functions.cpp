@@ -12,26 +12,31 @@ void bubbleSort(int array[], int size);
 void selectionSort(int array[], int size);
 void insertionSort(int array[], int size);
 void bogoSort(int array[], int size);
+void quickSort(int unsorted[], int right);
+void quickSort(int unsorted[], int right, int left);
 
 int main() {
     
-    const int Asize = 4;
+    const int Asize = 10;
     int A[Asize];
-	int B[Asize];
+    int B[Asize];
     
     createArray(A, Asize);
     copy(A, A+Asize, B); //Make a backup copy of array A so the exact same array is passed to each sort.
 	
-    bubbleSort(A, Asize);
+    //bubbleSort(A, Asize);
     
-    copy(B, B+Asize, A); //Restore array A from backup.
-    selectionSort(A, Asize);
+    //copy(B, B+Asize, A); //Restore array A from backup.
+    //selectionSort(A, Asize);
 	
-    copy(B, B+Asize, A); //Restore array A from backup.
-    insertionSort(A, Asize);
+    //copy(B, B+Asize, A); //Restore array A from backup.
+    //insertionSort(A, Asize);
     
-    copy(B, B+Asize, A); //Restore array A from backup.
-    bogoSort(A, Asize);
+    //copy(B, B+Asize, A); //Restore array A from backup.
+    //bogoSort(A, Asize);
+
+    //copy(B, B+Asize, A); //Restore array A from backup.
+    quickSort(A, Asize-1);
 
     return 0;
 }
@@ -230,3 +235,213 @@ void bogoSort(int array[], int size) {
 	cout << endl << "  It took " << reshuffleCount << " reshuffels to complete." << endl;
     cout << endl << "  Time to complete " << (end - start) / (double)CLOCKS_PER_SEC << " seconds." << endl << endl;
 }
+
+
+/*
+ * Quick Sort - initial call
+ */
+void quickSort(int unsorted[], int right) {
+    clock_t start, end;
+    start = clock();
+
+    cout << endl << "  Quick Sort" << endl;
+    cout << "  --------------" << endl;
+    cout << "  original array: ";
+    printArray(unsorted, right+1);
+    cout << endl << endl;
+
+    cout << "    First call to quickSort." << endl;
+	//rule 1
+	int left = 0;
+	int pivot = unsorted[left];
+	int L = left;
+	int R = right;
+	
+	cout << "    set pivot = " << pivot << endl;
+	cout << "    set left = " << left << endl;
+	cout << "    set right = " << right << endl << endl;
+
+	//rule 6
+	while (left < right) {
+	
+		//rule 2
+		while ((pivot <= unsorted[right]) && (left < right)) {
+			cout << "    Compare pivot to array[right]: " ;
+			cout << pivot << " is less than " << unsorted[right] << ", decrement right to " << right-1 << endl;
+			right--;
+		}
+
+		//rule 3
+		if (pivot > unsorted[right]) {
+			cout << "    Compare pivot to array[right]: ";
+			cout << pivot << " is greater than " << unsorted[right];
+			cout << " copy " << unsorted[right] << " over " << unsorted[left];
+			unsorted[left] = unsorted[right];
+			left++;
+			cout << ", increment left to " << left << endl;
+		}
+
+		//rule 4
+		while ((pivot >= unsorted[left]) && (left < right)) {
+			cout << "    Compare pivot to array[left]: " ;
+			cout << pivot << " is greater than " << unsorted[left] << ", increment left to " << left+1 << endl;
+			left++;
+		}
+
+		//rule 5
+		if (pivot < unsorted[left]) {
+		    cout << "    Compare pivot to array[left]: ";
+			cout << pivot << " is less than " << unsorted[left];
+			cout << " copy " << unsorted[left] << " over " << unsorted[right];
+			unsorted[right] = unsorted[left];
+			right--;
+			cout << ", decrement right to " << right << endl;
+		}
+	}
+    
+    cout << "    No numbers left for comparison, copy pivot to array[left]." << endl;
+    cout << "    Number less than " << pivot << " are before element " << left;
+    cout << " and numbers greater than " << pivot << " are after." << endl;
+	unsorted[left] = pivot;
+	
+	
+	cout << "    Array at end of this call: ";
+    printArray(unsorted, R+1);
+    cout << endl;
+
+	//rule 7
+	if (L < right - 1) {
+		quickSort(unsorted, right - 1, L);
+	}
+
+	if (left + 1 < R) {
+		quickSort(unsorted, R, left + 1);
+	}
+	
+    end = clock();
+    
+    cout << endl << "  Final array: ";
+    printArray(unsorted, R+1);
+    cout << endl << "  Time to complete " << (end - start) / (double)CLOCKS_PER_SEC << " seconds." << endl << endl;
+
+}
+
+
+/*
+ * Quick Sort - recursive calls, this is done for the pretty output. int left
+ * could have just been an optional argument set to 0.
+ */
+void quickSort(int unsorted[], int right, int left) {
+    cout << endl;
+    cout << "    Recursive quickSort call on: ";
+    printArray(unsorted, right+1, left);
+    cout << endl;
+
+	//rule 1
+	int pivot = unsorted[left];
+	int L = left;
+	int R = right;
+	
+	cout << "    set pivot = " << pivot << endl;
+	cout << "    set left = " << left << endl;
+	cout << "    set right = " << right << endl;
+
+	//rule 6
+	while (left < right) {
+	
+		//rule 2
+		while ((pivot <= unsorted[right]) && (left < right)) {
+			cout << "    Compare pivot to array[right]: " ;
+			cout << pivot << " is less than " << unsorted[right] << ", decrement right to " << right-1 << endl;
+			right--;
+		}
+
+		//rule 3
+		if (pivot > unsorted[right]) {
+			cout << "    Compare pivot to array[right]: ";
+			cout << pivot << " is greater than " << unsorted[right];
+			cout << " copy " << unsorted[right] << " over " << unsorted[left];
+			unsorted[left] = unsorted[right];
+			left++;
+			cout << ", increment left to " << left << endl;
+		}
+
+		//rule 4
+		while ((pivot >= unsorted[left]) && (left < right)) {
+			cout << "    Compare pivot to array[left]: " ;
+			cout << pivot << " is greater than " << unsorted[left] << ", increment left to " << left+1 << endl;
+			left++;
+		}
+
+		//rule 5
+		if (pivot < unsorted[left]) {
+		    cout << "    Compare pivot to array[left]: ";
+			cout << pivot << " is less than " << unsorted[left];
+			cout << " copy " << unsorted[left] << " over " << unsorted[right];
+			unsorted[right] = unsorted[left];
+			right--;
+			cout << ", decrement right to " << right << endl;
+		}
+	}
+    
+    cout << "    No numbers left for comparison, copy pivot to array[left]." << endl;
+    cout << "    Number less than " << pivot << " are before element " << left;
+    cout << " and numbers greater than " << pivot << " are after." << endl;
+	unsorted[left] = pivot;
+	
+	
+	cout << "    Array at end of this call: ";
+    printArray(unsorted, R+1);
+    cout << endl;
+
+	//rule 7
+	if (L < right - 1) {
+		quickSort(unsorted, right - 1, L);
+	}
+
+	if (left + 1 < R) {
+		quickSort(unsorted, R, left + 1);
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
