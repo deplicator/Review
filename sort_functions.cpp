@@ -1,30 +1,12 @@
 #include <algorithm>
 #include <cstdlib>
-#include <ctime>    //time difference 0 when compiled on gcc, but gives a result in Visual Studios.
+#include <ctime>
 #include <iostream>
+#include "array_functions.h"
 #include "sort_functions.h"
 
 using namespace std;
 
-
-void createArray(int array[], int size) {
-    srand(time(NULL));
-    for(int i = 0; i < size; i++) {
-        array[i] = (rand() % 99) + 1;
-    }
-}
-
-
-void printArray(int array[], int size, int start = 0) {
-    cout << "{";
-    for (int i = start; i < size; i++) {
-        cout << array[i];
-        if (i != (size - 1)) {
-            cout << ", ";
-        }
-    }
-    cout << "}";
-}
 
 /*
  * Bubble Sort
@@ -369,44 +351,3 @@ void quickSort(int unsorted[], int right, int left) {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

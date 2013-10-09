@@ -1,7 +1,8 @@
 #include <algorithm>
 #include <cstdlib>
-#include <ctime>    //time difference 0 when compiled on gcc, but gives a result in Visual Studios.
+#include <ctime>
 #include <iostream>
+#include "array_functions.h"
 #include "sort_functions.h"
 
 using namespace std;
