@@ -351,3 +351,68 @@ void quickSort(int unsorted[], int right, int left) {
 	}
 
 }
+
+
+
+/*
+ * Merge Sort
+ */
+void mergeSort(int A[], int B[], int left, int right) {
+	cout << "calling Merge Sort with left " << left << " and right " << right << "." << endl;
+	if(left < right) {
+		int middle = (left + right) / 2;
+		cout << "find middle: " << middle << endl;
+		mergeSort(A, B, left, middle);
+		mergeSort(A, B, middle + 1, right);
+		merge(A, B, left, middle, right);
+	}
+}
+
+/*
+ * Merge, function used by Merge Sort.
+ */
+void merge(int A[], int B[], int left, int middle, int right) {
+	cout << "calling Merge" << endl;
+	int i = left;
+	int j = middle + 1;
+	int k = left;
+
+	while(i <= middle && j <= right) {
+		if(A[i] < A[j]) {
+			B[k] = A[i];
+			cout << "copy " << A[i] << " to element " << k << " in backup array." << endl;
+			cout << "incrementing i to " << i << endl;
+			i++;
+		} else {
+			B[k] = A[j];
+			cout << "copy " << A[j] << " to element " << k << " in backup array." << endl;
+			cout << "incrementing j to " << j << endl;
+			j++;
+		}
+		k++;
+		cout << "incrementing k to " << k << endl;
+	}
+	while(i <= middle) {
+		cout << "One array was longer, finish adding it to the backup array." << endl;
+		B[k] = A[i];
+		cout << "copy " << A[i] << " to element " << k << " in backup array." << endl;
+		i++;
+		cout << "incrementing i to " << i << endl;
+		k++;
+		cout << "incrementing k to " << k << endl;
+	}
+	while(j <= right) {
+		cout << "One array was longer, finish adding it to the backup array." << endl;
+		B[k] = A[j];
+		cout << "copy " << A[j] << " to element " << k << " in backup array." << endl;
+		j++;
+		cout << "incrementing j to " << j << endl;
+		k++;
+		cout << "incrementing k to " << k << endl;
+	}
+
+	for(int i = left; i<= right; i++) {
+		A[i] = B[i];
+	}
+}
+

@@ -29,6 +29,10 @@ int main() {
 
     copy(B, B+Asize, A); //Restore array A from backup.
     quickSort(A, Asize-1);
+    
+    copy(B, B+Asize, A); //Restore array A from backup.
+    int Bu[Asize];
+    mergeSort(A, Bu, 0, Asize-1);
 
     return 0;
 }
