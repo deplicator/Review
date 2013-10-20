@@ -32,7 +32,7 @@ int main() {
     
     copy(B, B+Asize, A); //Restore array A from backup.
     int Bu[Asize];
-    mergeSort(A, Bu, 0, Asize-1);
+    mergeSort(A, Asize-1);
 
     return 0;
 }

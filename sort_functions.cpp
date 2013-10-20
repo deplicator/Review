@@ -355,24 +355,69 @@ void quickSort(int unsorted[], int right, int left) {
 
 
 /*
- * Merge Sort
+ * Merge Sort - initial call
  */
-void mergeSort(int A[], int B[], int left, int right) {
-	cout << "calling Merge Sort with left " << left << " and right " << right << "." << endl;
+void mergeSort(int unsorted[], int right) {
+    clock_t start, end;
+    start = clock();
+
+    int Backup[right+1];
+    int left = 0;
+    
+    cout << endl << "  Merge Sort" << endl;
+    cout << "  --------------" << endl;
+    cout << "  original array: ";
+    printArray(unsorted, right+1);
+    cout << endl << endl;
+    
+    
+	cout << "    left:  " << left << endl;
+	cout << "    right: " << right << endl;
+	
 	if(left < right) {
 		int middle = (left + right) / 2;
-		cout << "find middle: " << middle << endl;
+		cout << "    find middle: " << middle << endl;
+		mergeSort(unsorted, Backup, left, middle);
+		mergeSort(unsorted, Backup, middle + 1, right);
+		merge(unsorted, Backup, left, middle, right);
+	}
+	
+	end = clock();
+    
+    cout << endl << "  Final array: ";
+    printArray(unsorted, right+1);
+    cout << endl << "  Time to complete " << (end - start) / (double)CLOCKS_PER_SEC << " seconds." << endl << endl;
+}
+
+
+/*
+ * Merge Sort - recursive calls
+ */
+void mergeSort(int A[], int B[], int left, int right) {
+    cout << endl << "  calling Merge Sort" << endl;
+    cout << "    passed array: ";
+    printArray(A, right+1);
+    cout << endl;
+    
+    
+	cout << "    left:  " << left << endl;
+	cout << "    right: " << right << endl;
+	
+	if(left < right) {
+		int middle = (left + right) / 2;
+		cout << "    find middle: " << middle << endl << endl;
 		mergeSort(A, B, left, middle);
 		mergeSort(A, B, middle + 1, right);
 		merge(A, B, left, middle, right);
 	}
 }
 
+
 /*
  * Merge, function used by Merge Sort.
  */
 void merge(int A[], int B[], int left, int middle, int right) {
-	cout << "calling Merge" << endl;
+	cout << endl << "  calling Merge" << endl;
 	int i = left;
 	int j = middle + 1;
 	int k = left;
@@ -380,35 +425,35 @@ void merge(int A[], int B[], int left, int middle, int right) {
 	while(i <= middle && j <= right) {
 		if(A[i] < A[j]) {
 			B[k] = A[i];
-			cout << "copy " << A[i] << " to element " << k << " in backup array." << endl;
-			cout << "incrementing i to " << i << endl;
+			cout << "    copy " << A[i] << " to element " << k << " in backup array." << endl;
+			cout << "    incrementing i to " << i << endl;
 			i++;
 		} else {
 			B[k] = A[j];
-			cout << "copy " << A[j] << " to element " << k << " in backup array." << endl;
-			cout << "incrementing j to " << j << endl;
+			cout << "    copy " << A[j] << " to element " << k << " in backup array." << endl;
+			cout << "    incrementing j to " << j << endl;
 			j++;
 		}
 		k++;
-		cout << "incrementing k to " << k << endl;
+		cout << "    incrementing k to " << k << endl;
 	}
 	while(i <= middle) {
-		cout << "One array was longer, finish adding it to the backup array." << endl;
+		cout << "    One array was longer, finish adding it to the backup array." << endl;
 		B[k] = A[i];
-		cout << "copy " << A[i] << " to element " << k << " in backup array." << endl;
+		cout << "    copy " << A[i] << " to element " << k << " in backup array." << endl;
 		i++;
-		cout << "incrementing i to " << i << endl;
+		cout << "    incrementing i to " << i << endl;
 		k++;
-		cout << "incrementing k to " << k << endl;
+		cout << "    incrementing k to " << k << endl;
 	}
 	while(j <= right) {
-		cout << "One array was longer, finish adding it to the backup array." << endl;
+		cout << "    One array was longer, finish adding it to the backup array." << endl;
 		B[k] = A[j];
-		cout << "copy " << A[j] << " to element " << k << " in backup array." << endl;
+		cout << "    copy " << A[j] << " to element " << k << " in backup array." << endl;
 		j++;
-		cout << "incrementing j to " << j << endl;
+		cout << "    incrementing j to " << j << endl;
 		k++;
-		cout << "incrementing k to " << k << endl;
+		cout << "    incrementing k to " << k << endl;
 	}
 
 	for(int i = left; i<= right; i++) {
