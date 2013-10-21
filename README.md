@@ -13,7 +13,7 @@ Because I'll forget how...
 GNU
 ---
 
-    g++ main.cpp array_functions.cpp sort_functions.cpp -o test.exe
+    g++ main.cpp array_functions.cpp search_functions.cpp sort_functions.cpp -o test.exe
 
 
 Visual Studios

@@ -399,7 +399,6 @@ void mergeSort(int A[], int B[], int left, int right) {
     printArray(A, right+1);
     cout << endl;
     
-    
 	cout << "    left:  " << left << endl;
 	cout << "    right: " << right << endl;
 	
