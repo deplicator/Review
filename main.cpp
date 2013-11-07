@@ -15,7 +15,7 @@ int main() {
     int A[Asize];
     int B[Asize];
     
-    createArray(A, Asize);
+    createArray(A, Asize, 4); //create an array with known elements.
     copy(A, A+Asize, B); //Make a backup copy of array A so the exact same array is passed to each sort.
 	
     bubbleSort(A, Asize);
@@ -36,8 +36,9 @@ int main() {
     int Bu[Asize];
     mergeSort(A, Asize-1);
     */
+    
     //leave A sorted for searching.
-    bruteForceSearch(A, Asize, 50);
+    binarySearch(A, Asize, 8);
 
     return 0;
 }

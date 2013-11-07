@@ -14,6 +14,13 @@ void createArray(int array[], int size) {
     }
 }
 
+void createArray(int array[], int size, int num) {
+    srand(time(NULL));
+    for(int i = 0; i < size; i++) {
+        array[i] = i + num;
+    }
+}
+
 void printArray(int array[], int size, int start) {
     cout << "{";
     for (int i = start; i < size; i++) {
