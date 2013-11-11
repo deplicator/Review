@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 /*
  * Bubble Sort
  * http://en.wikipedia.org/wiki/Bubble_sort
@@ -18,16 +17,16 @@ void bubbleSort(int array[], int size) {
 
     cout << endl << "  Bubble Sort" << endl;
     cout << "  -----------" << endl;
-    cout << "  original array: ";
+    cout << "  Unsorted array: ";
     printArray(array, size);
     cout << endl << endl;
     
     for (int i = size; i > 1; i--) {
-        cout << "  pass " << size - i + 1 << endl << "    sorted so far: ";
+        cout << "  Pass " << size - i + 1 << endl << "    Sorted so far: ";
         printArray(array, size, i);
         cout << endl << endl;
         for (int j = 0; j < (i - 1); j++) {
-            cout << "    check element " << j << " against element " << j + 1 << endl;
+            cout << "    Check position " << j << " against position " << j + 1 << "." << endl;
             if (array[j] > array[j + 1]) {
                 cout << "    " << array[j] << " is greater than " << array[j + 1] << " so swap. --> ";
                 
@@ -63,17 +62,17 @@ void selectionSort(int array[], int size) {
 
     cout << endl << "  Selection Sort" << endl;
     cout << "  --------------" << endl;
-    cout << "  original array: ";
+    cout << "  Unsorted array: ";
     printArray(array, size);
     cout << endl << endl;
     
     for (int i = 0; i < (size - 1); i++) {
-        cout << "  pass " << i + 1 << endl << "    sorted so far: ";
+        cout << "  Pass " << i + 1 << endl << "    Sorted so far: ";
         printArray(array, size, size - i);
         cout << endl << endl;
         
         for (int j = (i + 1); j < size; j++) {
-            cout << "    check element " << i << " against element " << j << endl;
+            cout << "    Check position " << i << " against position " << j << endl;
             if (array[i] > array [j]) {
                 int temp = array[i];
                 array[i] = array[j];
@@ -101,44 +100,55 @@ void selectionSort(int array[], int size) {
  * Insertion Sort
  * http://en.wikipedia.org/wiki/Insertion_sort
  */
-void insertionSort(int array[], int size) {
+void insertionSort(int list[], int size) {
 	clock_t start, end;
     start = clock();
 
     cout << endl << "  Insertion Sort" << endl;
     cout << "  --------------" << endl;
-    cout << "  original array: ";
-    printArray(array, size);
+    cout << "  Unsorted array: ";
+    printArray(list, size);
     cout << endl << endl;
     
     int temp, j;
     for (int i = 1; i < size; i++) {
-        temp = array[i];
-        cout << "  pass " << i << endl <<"    sorted so far: ";
-        printArray(array, i);
-        cout << endl << "    temp: " << temp << endl << endl;
-
+        temp = list[i];
+        cout << "  Pass " << i << endl <<"    Sorted so far: ";
+        printArray(list, i);
+        cout << endl << "    Assign array position " << i 
+             << " to temporary variable (temp = " << temp << ")." << endl;
+        
+        int behindFlag; //Only used for pretty output.
         for (j = (i - 1); j >= 0; j--) {
-            cout << "    compare temp against element " << j << endl;
-            if (temp < array[j]) {
-                array[j + 1] = array[j];
-                cout << "    it's lower so copy element " << j << " right --> ";
-                printArray(array, i + 1);
-                cout << endl << endl;
+            behindFlag = 0;
+            cout << endl << "    Compare temp against position " << j << "." << endl;
+            if (temp < list[j]) {
+                list[j + 1] = list[j];
+                cout << "    It's lower so copy position " << j << " right --> ";
+                printArray(list, i + 1);
+                cout << endl;
             } else {
-                cout << "    it's higher so insert behind --> ";
+                cout << "    It's higher so insert behind --> ";
+                behindFlag = 1;
                 break;
             }
         }
-        array[j + 1] = temp;
-        //printArray(array, i + 1);
-        cout << endl << endl;
+        list[j + 1] = temp;
+        
+        if(behindFlag) {
+            printArray(list, i + 1);
+            cout << endl << endl;
+        } else {
+            cout << "    Insert " << temp << " into position " << j + 1 << " --> ";
+            printArray(list, i + 1);
+            cout << endl << endl;
+        }
     }
 
     end = clock();
 
     cout << "  Final array: ";
-    printArray(array, size);
+    printArray(list, size);
     cout << endl << "  Time to complete " << ((float)end - start) / CLOCKS_PER_SEC << " seconds." << endl << endl;
 }
 
@@ -153,21 +163,21 @@ void bogoSort(int array[], int size) {
 
     cout << endl << "  Bogosort" << endl;
     cout << "  --------" << endl;
-    cout << "    Initial array = ";
+    cout << "    Unsorted array = ";
     printArray(array, size);
     cout << endl;
     int count = 0;
     int reshuffleCount = 0;
     while(count < size-1) {
-        cout << "    checking element " << count << ": " << array[count];
+        cout << "    Checking position " << count << ": " << array[count];
 
         if (array[count] < array[count + 1] || array[count] == array[count + 1] ) {
-            cout << " is lower than " << array[count + 1] << " continue."<< endl;
+            cout << " is lower than " << array[count + 1] << ", continue."<< endl;
             count++;
         } else {
             count = 0;
-            cout << " is not lower than " << array[count + 2] << endl << endl;
-            cout << "    Reshuffling array = ";
+            cout << " is not lower than " << array[count + 2] << ", start over." << endl << endl;
+            cout << "    Reshuffled array = ";
             random_shuffle(&array[0], &array[size]);
             printArray(array, size);
             reshuffleCount++;
@@ -177,9 +187,9 @@ void bogoSort(int array[], int size) {
 
 	end = clock();
     
-    cout << "  Final array: ";
+    cout << endl << "  Final array: ";
     printArray(array, size);
-	cout << endl << "  It took " << reshuffleCount << " reshuffels to complete." << endl;
+	cout << endl << "  It took " << reshuffleCount << " reshuffles to complete.";
     cout << endl << "  Time to complete " << (end - start) / (double)CLOCKS_PER_SEC << " seconds." << endl << endl;
 }
 
