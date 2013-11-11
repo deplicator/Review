@@ -11,11 +11,11 @@ using namespace std;
 
 int main() {
     
-    const int Asize = 4;
+    const int Asize = 5;
     int A[Asize];
     int B[Asize];
     
-    createArray(A, Asize, 4); //create an array with known elements.
+    createArray(A, Asize, 1); //create an array with known elements.
     copy(A, A+Asize, B); //Make a backup copy of array A so the exact same array is passed to each sort.
 	
     bubbleSort(A, Asize);
@@ -38,7 +38,9 @@ int main() {
     */
     
     //leave A sorted for searching.
-    interpolationSearch(A, Asize, 6);
-
+    bruteForceSearch(A, Asize, 4);
+    binarySearch(A, Asize, 4);
+    interpolationSearch(A, Asize, 4);
+    
     return 0;
 }
