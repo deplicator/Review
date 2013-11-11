@@ -2,33 +2,32 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include "array_functions.h"
-#include "sort_functions.h"
+#include "headers/array_functions.h"
 
-using namespace std;
-
-void createArray(int array[], int size) {
+//Fill an array with random numbers between 1 and 100.
+void createArray(int list[], int size) {
     srand(time(NULL));
     for(int i = 0; i < size; i++) {
-        array[i] = (rand() % 99) + 1;
+        list[i] = (rand() % 99) + 1;
     }
 }
 
-void createArray(int array[], int size, int num) {
+//Same as above, except fills the array with known numbers. 
+void createArray(int list[], int size, int num) {
     srand(time(NULL));
     for(int i = 0; i < size; i++) {
-        array[i] = i + num;
+        list[i] = i + num;
     }
 }
 
-void printArray(int array[], int size, int start) {
-    cout << "{";
+//Print the array, I think it's pretty.
+void printArray(int list[], int size, int start) {
+    std::cout << "{";
     for (int i = start; i < size; i++) {
-        cout << array[i];
+        std::cout << list[i];
         if (i != (size - 1)) {
-            cout << ", ";
+            std::cout << ", ";
         }
     }
-    cout << "}";
+    std::cout << "}";
 }
-

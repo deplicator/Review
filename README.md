@@ -18,10 +18,10 @@ GNU
 
 Visual Studios
 --------------
-Copy and paste is the key.
+Copy and paste is what I do.
 
 
-Compileing with g++ sort time functions become useless, they're all 0. On the
-other hand, compiling in Visual Studios will give a result in seconds (fractions
-of seconds in most cases) even with the default of only 4 elements. Aparently 
-Visual Studios takes a long time to cout.
+Compileing with g++ timing the sort functions becomes useless, they're all 0. On
+the other hand, compiling in Visual Studios will give a result in seconds
+(fractions of seconds in most cases) even with the default of only 4 elements. 
+Aparently Visual Studios takes a long time to cout.

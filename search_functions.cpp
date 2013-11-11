@@ -2,29 +2,26 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include "array_functions.h"
-#include "search_functions.h"
-#include "sort_functions.h"
+#include "headers/search_functions.h"
 
-using namespace std;
-
+//Uses a brute force search to find N.
 void bruteForceSearch(int sorted[], int size, int N) {
-    cout << "Start Brute Force Search for " << N << "." << endl;
+    std::cout << "Start Brute Force Search for " << N << "." << std::endl;
     int foundFlag = 1;
     for(int i = 0; i < size; i++) {
         if(sorted[i] == N) {
-            cout << "Found " << N << " in element " << i << "." << endl;
+            std::cout << "Found " << N << " in element " << i << "." << std::endl;
             foundFlag = 0;
         }
     }
     if(foundFlag) {
-        cout << N << " not found in array." << endl;
+        std::cout << N << " not found in array." << std::endl;
     }
 }
 
-
+//Uses a binary search to find N.
 void binarySearch(int sorted[], int size, int N) {
-    cout << "Start Binary Search for " << N << "." << endl;
+    std::cout << "Start Binary Search for " << N << "." << std::endl;
     int left = 0;
     int right = size - 1;
     int middle;
@@ -32,24 +29,22 @@ void binarySearch(int sorted[], int size, int N) {
     
     while(left < right) {
         middle = (left + right) / 2;
-        cout << left << " " << right << " " << middle << endl;
+        std::cout << left << " " << right << " " << middle << std::endl;
         
         if(N < sorted[middle]) {
-            cout << N << " is less than " << sorted[middle] << endl;
+            std::cout << N << " is less than " << sorted[middle] << std::endl;
             right = middle - 1;
         } else if(N > sorted[middle]) {
-            cout << N << " is greater than " << sorted[middle] << endl;
+            std::cout << N << " is greater than " << sorted[middle] << std::endl;
             left = middle + 1;
         } else {
-            cout << "Found " << N << " in element " << middle << "." << endl;
+            std::cout << "Found " << N << " in element " << middle << "." << std::endl;
             foundFlag = 0;
             break;
-        }
-        
+        }   
     }
-    
     if(foundFlag) {
-         cout << N << " not found in array." << endl;
+         std::cout << N << " not found in array." << std::endl;
     }
     
 }

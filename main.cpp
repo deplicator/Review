@@ -2,9 +2,9 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include "array_functions.h"
-#include "search_functions.h"
-#include "sort_functions.h"
+#include "headers/array_functions.h"
+#include "headers/search_functions.h"
+#include "headers/sort_functions.h"
 
 
 using namespace std;
