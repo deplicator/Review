@@ -38,7 +38,7 @@ int main() {
     */
     
     //leave A sorted for searching.
-    binarySearch(A, Asize, 8);
+    interpolationSearch(A, Asize, 6);
 
     return 0;
 }
