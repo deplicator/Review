@@ -115,9 +115,11 @@ void interpolationSearch(int sorted[], int size, int N) {
         if(N > sorted[middle]) {
             std::cout << "    " << N << " is less than " << sorted[middle] << ", keep searching.\n\n";
             left = middle + 1;
+            searchCount++;
         } else if(N < sorted[middle]) {
             std::cout << "    " << N << " is greater than " << sorted[middle] << ", keep searching.\n\n";
             right = middle - 1;
+            searchCount++;
         } else {
             std::cout << "    Found " << N << " in position " << middle << "!\n";
             std::cout << "    Search took " << searchCount + 1 << " comparisons.\n\n";

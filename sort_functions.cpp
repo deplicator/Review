@@ -157,29 +157,29 @@ void insertionSort(int list[], int size) {
  * Bogosort
  * http://en.wikipedia.org/wiki/Bogosort
  */
-void bogoSort(int array[], int size) {
+void bogoSort(int unsorted[], int size) {
 	clock_t start, end;
     start = clock();
 
     cout << endl << "  Bogosort" << endl;
     cout << "  --------" << endl;
     cout << "    Unsorted array = ";
-    printArray(array, size);
+    printArray(unsorted, size);
     cout << endl;
     int count = 0;
     int reshuffleCount = 0;
     while(count < size-1) {
-        cout << "    Checking position " << count << ": " << array[count];
+        cout << "    Checking position " << count << ": " << unsorted[count];
 
-        if (array[count] < array[count + 1] || array[count] == array[count + 1] ) {
-            cout << " is lower than " << array[count + 1] << ", continue."<< endl;
+        if (unsorted[count] < unsorted[count + 1] || unsorted[count] == unsorted[count + 1] ) {
+            cout << " is lower than " << unsorted[count + 1] << ", continue."<< endl;
             count++;
         } else {
             count = 0;
-            cout << " is not lower than " << array[count + 2] << ", start over." << endl << endl;
+            cout << " is not lower than " << unsorted[count + 2] << ", start over." << endl << endl;
             cout << "    Reshuffled array = ";
-            random_shuffle(&array[0], &array[size]);
-            printArray(array, size);
+            random_shuffle(&unsorted[0], &unsorted[size]);
+            printArray(unsorted, size);
             reshuffleCount++;
             cout << endl;
         }
@@ -188,7 +188,7 @@ void bogoSort(int array[], int size) {
 	end = clock();
     
     cout << endl << "  Final array: ";
-    printArray(array, size);
+    printArray(unsorted, size);
 	cout << endl << "  It took " << reshuffleCount << " reshuffles to complete.";
     cout << endl << "  Time to complete " << (end - start) / (double)CLOCKS_PER_SEC << " seconds." << endl << endl;
 }
@@ -203,7 +203,7 @@ void quickSort(int unsorted[], int right) {
 
     cout << endl << "  Quick Sort" << endl;
     cout << "  --------------" << endl;
-    cout << "  original array: ";
+    cout << "  Unsorted array: ";
     printArray(unsorted, right+1);
     cout << endl << endl;
 
@@ -214,9 +214,9 @@ void quickSort(int unsorted[], int right) {
 	int L = left;
 	int R = right;
 	
-	cout << "    set pivot = " << pivot << endl;
-	cout << "    set left = " << left << endl;
-	cout << "    set right = " << right << endl << endl;
+	cout << "    Set pivot = " << pivot << endl;
+	cout << "    Set left = " << left << endl;
+	cout << "    Set right = " << right << endl << endl;
 
 	//rule 6
 	while (left < right) {
@@ -299,9 +299,9 @@ void quickSort(int unsorted[], int right, int left) {
 	int L = left;
 	int R = right;
 	
-	cout << "    set pivot = " << pivot << endl;
-	cout << "    set left = " << left << endl;
-	cout << "    set right = " << right << endl;
+	cout << "    Set pivot = " << pivot << endl;
+	cout << "    Set left = " << left << endl;
+	cout << "    Set right = " << right << endl;
 
 	//rule 6
 	while (left < right) {
@@ -376,17 +376,17 @@ void mergeSort(int unsorted[], int right) {
     
     cout << endl << "  Merge Sort" << endl;
     cout << "  --------------" << endl;
-    cout << "  original array: ";
+    cout << "  Unsorted array: ";
     printArray(unsorted, right+1);
     cout << endl << endl;
     
     
-	cout << "    left:  " << left << endl;
-	cout << "    right: " << right << endl;
+	cout << "    Left:  " << left << endl;
+	cout << "    Right: " << right << endl;
 	
 	if(left < right) {
 		int middle = (left + right) / 2;
-		cout << "    find middle: " << middle << endl;
+		cout << "    Calculate middle: " << middle << endl;
 		mergeSort(unsorted, Backup, left, middle);
 		mergeSort(unsorted, Backup, middle + 1, right);
 		merge(unsorted, Backup, left, middle, right);
@@ -404,17 +404,17 @@ void mergeSort(int unsorted[], int right) {
  * Merge Sort - recursive calls
  */
 void mergeSort(int A[], int B[], int left, int right) {
-    cout << endl << "  calling Merge Sort" << endl;
-    cout << "    passed array: ";
+    cout << endl << "  Calling Merge Sort" << endl;
+    cout << "    Passed array: ";
     printArray(A, right+1);
     cout << endl;
     
-	cout << "    left:  " << left << endl;
-	cout << "    right: " << right << endl;
+	cout << "    Left:  " << left << endl;
+	cout << "    Right: " << right << endl;
 	
 	if(left < right) {
 		int middle = (left + right) / 2;
-		cout << "    find middle: " << middle << endl << endl;
+		cout << "    Calculate middle: " << middle << endl << endl;
 		mergeSort(A, B, left, middle);
 		mergeSort(A, B, middle + 1, right);
 		merge(A, B, left, middle, right);
@@ -426,7 +426,7 @@ void mergeSort(int A[], int B[], int left, int right) {
  * Merge, function used by Merge Sort.
  */
 void merge(int A[], int B[], int left, int middle, int right) {
-	cout << endl << "  calling Merge" << endl;
+	cout << endl << "  Calling Merge" << endl;
 	int i = left;
 	int j = middle + 1;
 	int k = left;
@@ -434,35 +434,35 @@ void merge(int A[], int B[], int left, int middle, int right) {
 	while(i <= middle && j <= right) {
 		if(A[i] < A[j]) {
 			B[k] = A[i];
-			cout << "    copy " << A[i] << " to element " << k << " in backup array." << endl;
-			cout << "    incrementing i to " << i << endl;
+			cout << "    Copy " << A[i] << " to element " << k << " in backup array." << endl;
+			cout << "    Incrementing i to " << i << "." << endl;
 			i++;
 		} else {
 			B[k] = A[j];
-			cout << "    copy " << A[j] << " to element " << k << " in backup array." << endl;
-			cout << "    incrementing j to " << j << endl;
+			cout << "    Copy " << A[j] << " to element " << k << " in backup array." << endl;
+			cout << "    Incrementing j to " << j << "." << endl;
 			j++;
 		}
 		k++;
-		cout << "    incrementing k to " << k << endl;
+		cout << "    Incrementing k to " << k << "." << endl;
 	}
 	while(i <= middle) {
 		cout << "    One array was longer, finish adding it to the backup array." << endl;
 		B[k] = A[i];
-		cout << "    copy " << A[i] << " to element " << k << " in backup array." << endl;
+		cout << "    Copy " << A[i] << " to element " << k << " in backup array." << endl;
 		i++;
-		cout << "    incrementing i to " << i << endl;
+		cout << "    Incrementing i to " << i << "." << endl;
 		k++;
-		cout << "    incrementing k to " << k << endl;
+		cout << "    Incrementing k to " << k << "." << endl;
 	}
 	while(j <= right) {
 		cout << "    One array was longer, finish adding it to the backup array." << endl;
 		B[k] = A[j];
-		cout << "    copy " << A[j] << " to element " << k << " in backup array." << endl;
+		cout << "    Copy " << A[j] << " to element " << k << " in backup array." << endl;
 		j++;
-		cout << "    incrementing j to " << j << endl;
+		cout << "    Incrementing j to " << j << "." << endl;
 		k++;
-		cout << "    incrementing k to " << k << endl;
+		cout << "    Incrementing k to " << k << "." << endl;
 	}
 
 	for(int i = left; i<= right; i++) {
