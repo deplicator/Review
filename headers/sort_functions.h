@@ -10,5 +10,6 @@ void quickSort(int unsorted[], int right, int left);
 void mergeSort(int unsorted[], int right);
 void mergeSort(int A[], int B[], int left, int right);
 void merge(int A[], int B[], int left, int middle, int right);
+void heapSort(int array[], int size);
 
 #endif

@@ -19,7 +19,7 @@ int main() {
 
     createArray(A, Asize); //create an array with known elements.
     copy(A, A+Asize, B); //Make a backup copy of array A so the exact same array is passed to each sort.
-
+/*
     bubbleSort(A, Asize);
 
     copy(B, B+Asize, A); //Restore array A from backup.
@@ -37,7 +37,12 @@ int main() {
     copy(B, B+Asize, A); //Restore array A from backup.
     int Bu[Asize];
     mergeSort(A, Asize-1);
+*/
 
+    copy(B, B+Asize, A); //Restore array A from backup.
+    heapSort(A, Asize);
+
+/*
     //leave A sorted for searching.
     bruteForceSearch(A, Asize, 50);
     binarySearch(A, Asize, 75);
@@ -52,6 +57,6 @@ int main() {
     removeNode(head, 3);
     printNodeValues(head);
     cleanupNodes(head);
-
+*/
     return 0;
 }
